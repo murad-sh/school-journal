@@ -1,3 +1,4 @@
 export type Grade = {
-  lessonId: number;
+  lesson: string;
+  grades: number[];
 };

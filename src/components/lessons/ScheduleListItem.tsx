@@ -10,7 +10,10 @@ const ScheduleListItem = ({ lesson }: ScheduleListItemProps) => {
       <div className="flex items-center justify-between">
         <div className="text-sm font-medium text-gray-900">{lesson.lesson}</div>
         <div className="ml-2 flex-shrink-0 flex">
-          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+          <span
+            className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"
+            style={{ fontVariantNumeric: 'tabular-nums' }}
+          >
             {lesson.startTime} - {lesson.endTime}
           </span>
         </div>
