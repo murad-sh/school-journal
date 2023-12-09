@@ -1,5 +1,5 @@
-import { Avatar, AvatarFallback } from '../ui/avatar';
-import { Button } from '../ui/button';
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +7,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import { useNavigate } from 'react-router-dom';
+} from "../ui/dropdown-menu";
+import { useNavigate } from "react-router-dom";
 
 interface UserProps {
   fullName: string;
@@ -16,7 +16,7 @@ interface UserProps {
 }
 
 const getFirstLetters = (fullName: string) => {
-  const [name, surname] = fullName.split(' ');
+  const [name, surname] = fullName.split(" ");
   return name[0].toUpperCase() + surname[0].toUpperCase();
 };
 
@@ -26,7 +26,7 @@ export function UserNav({ fullName, role }: UserProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+        <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-9 w-9">
             <AvatarFallback>{getFirstLetters(fullName)}</AvatarFallback>
           </Avatar>
@@ -42,7 +42,7 @@ export function UserNav({ fullName, role }: UserProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="hover:cursor-pointer"
-          onClick={() => navigate('/login')}
+          onClick={() => navigate("/login")}
         >
           Log out
         </DropdownMenuItem>

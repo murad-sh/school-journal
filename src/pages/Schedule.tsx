@@ -1,9 +1,9 @@
-import ScheduleList from '@/components/schedule/ScheduleList';
+import ScheduleList from "@/components/schedule/ScheduleList";
 
 const Schedule = () => {
   return (
     <section className="py-1">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      <h2 className="mb-4 text-2xl font-bold  text-slate-900 dark:text-slate-100">
         Your Current Schedule:
       </h2>
       <ScheduleList />

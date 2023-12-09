@@ -1,34 +1,28 @@
-import { studentAbsences } from '@/data/mocked/student-absences';
+import { studentAbsences } from "@/data/mocked/student-absences";
 
 const AbsencesList = () => {
   return (
     <div className="container p-4">
-      <ul className="bg-white shadow overflow-hidden rounded-md">
+      <ul className="overflow-hidden rounded-md border shadow-sm">
         {studentAbsences.map((absence, index) => (
           <li
             key={index}
-            className="px-4 py-4 sm:px-6 border-b border-gray-200"
+            className="flex items-center justify-between border-b p-4 last:border-b-0 sm:px-6"
           >
-            <div className="flex items-center justify-between">
-              <div className="text-sm font-medium text-gray-900">
+            <div className="flex flex-col gap-3 text-sm">
+              <span className=" font-medium text-slate-900 dark:text-slate-100">
                 {absence.lesson}
-              </div>
-              <div className="ml-2 flex-shrink-0 flex">
-                <span
-                  className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
-                  style={{ fontVariantNumeric: 'tabular-nums' }}
-                >
-                  {absence.date}
-                </span>
-              </div>
+              </span>
+              <span className="text-gray-500 dark:text-gray-400">
+                Teacher: {absence.teacher}
+              </span>
             </div>
-            {absence.teacher && (
-              <div className="mt-2 sm:flex sm:justify-between">
-                <p className="text-sm text-gray-500">
-                  Teacher: {absence.teacher}
-                </p>
-              </div>
-            )}
+            <span
+              className="rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold leading-5 text-rose-900 dark:bg-rose-800 dark:text-rose-100"
+              style={{ fontVariantNumeric: "tabular-nums" }}
+            >
+              {absence.date}
+            </span>
           </li>
         ))}
       </ul>
