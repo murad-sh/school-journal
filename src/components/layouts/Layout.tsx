@@ -9,6 +9,7 @@ import User from '@/models/user';
 const user: User = {
   fullName: 'Murad Shahbazov',
   role: 'student',
+  // role: 'teacher',
 };
 
 const Layout = () => {

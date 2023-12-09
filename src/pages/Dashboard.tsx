@@ -1,5 +1,11 @@
+import LessonsList from '@/components/dashboard/LessonList';
+
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <div>
+      <LessonsList />
+    </div>
+  );
 };
 
 export default Dashboard;

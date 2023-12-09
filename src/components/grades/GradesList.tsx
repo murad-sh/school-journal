@@ -1,4 +1,3 @@
-import React from 'react';
 import { studentGrades } from '@/data/mocked/student-grades';
 import {
   Tooltip,
@@ -8,66 +7,51 @@ import {
 } from '@/components/ui/tooltip';
 
 type Grade = {
-  grade?: number;
-  teacher?: string;
-  date?: string;
-  description?: string;
+  score: number;
+  teacher: string;
+  assessmentDate: string;
+  comment: string;
 };
 
 const GradesList = () => {
   const calculateAverage = (grades: Grade[]) => {
-    const validGrades = grades.filter((g) => g.grade != null);
-    const total = validGrades.reduce(
-      (acc, grade) => acc + (grade.grade || 0),
-      0
-    );
-    return validGrades.length > 0
-      ? (total / validGrades.length).toFixed(2)
-      : '-';
-  };
-
-  const createGradePlaceholders = (grades: Grade[]) => {
-    const placeholders = new Array(5).fill({});
-    grades.forEach((grade, index) => {
-      placeholders[index] = grade;
-    });
-    return placeholders;
+    if (grades.length === 0) return '-';
+    const total = grades.reduce((acc, grade) => acc + grade.score, 0);
+    console.log(total);
+    return (total / grades.length).toFixed(2);
   };
 
   return (
     <div className="container p-4">
-      <div className="grid grid-cols-7 gap-4">
-        <div className="font-semibold">Lesson</div>
-        <div className="font-semibold col-span-5 text-center">Grades</div>
-        <div className="font-semibold">Average</div>
-
-        {studentGrades.map((item, index) => (
-          <React.Fragment key={index}>
-            <div>{item.lesson}</div>
-            {createGradePlaceholders(item.grades).map((grade, gradeIndex) => (
-              <div key={gradeIndex}>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>{grade.grade ?? '-'}</TooltipTrigger>
-                    <TooltipContent>
-                      {grade.grade != null ? (
+      {studentGrades.map((lesson, index) => (
+        <div key={index} className="border p-2 mb-4">
+          <div className="grid grid-cols-7 gap-4 items-center">
+            <div className="font-semibold">{lesson.subject}</div>
+            <div className="col-span-5 grid grid-cols-5 gap-2">
+              {lesson.grades.length !== 0 &&
+                lesson.grades.map((grade, gradeIndex) => (
+                  <TooltipProvider key={gradeIndex}>
+                    <Tooltip>
+                      <TooltipTrigger className="bg-orange-700">
+                        {grade.score}
+                      </TooltipTrigger>
+                      <TooltipContent>
                         <div>
-                          <p>Date: {grade.date}</p>
+                          <p>Assigned at: {grade.assessmentDate}</p>
                           <p>Teacher: {grade.teacher}</p>
-                          <p>Description: {grade.description}</p>
+                          <p>Comment: {grade.comment}</p>
                         </div>
-                      ) : (
-                        'No grade'
-                      )}
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-            ))}
-            <div>{calculateAverage(item.grades)}</div>
-          </React.Fragment>
-        ))}
-      </div>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ))}
+            </div>
+            <div className="font-semibold">
+              {calculateAverage(lesson.grades)}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

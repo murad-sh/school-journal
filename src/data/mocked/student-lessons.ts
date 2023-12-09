@@ -1,3 +1,4 @@
+// GET /students/schedule -> return this type of array JWT tokens id fro student
 export const studentLessons = [
   {
     day: 'Monday',

@@ -1,4 +1,4 @@
-import ScheduleList from '@/components/lessons/ScheduleList';
+import ScheduleList from '@/components/schedule/ScheduleList';
 
 const Schedule = () => {
   return (
