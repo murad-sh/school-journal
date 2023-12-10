@@ -4,7 +4,7 @@ interface ScheduleListItemProps {
   lesson: Lesson;
 }
 
-const ScheduleListItem = ({ lesson }: ScheduleListItemProps) => {
+const ScheduleItem = ({ lesson }: ScheduleListItemProps) => {
   return (
     <li className="border-b p-4 last:border-b-0 sm:px-6">
       <div className="flex items-center justify-between">
@@ -13,7 +13,8 @@ const ScheduleListItem = ({ lesson }: ScheduleListItemProps) => {
             {lesson.lesson}
           </span>
           <span className="text-gray-500 dark:text-gray-400">
-            Teacher: {lesson.teacher}
+            {/* // TODO: get user role from token lesson.teacher -> user.role */}
+            {true ? `${lesson.teacher}, ${lesson.location}` : lesson.location}
           </span>
         </div>
         <span
@@ -27,4 +28,4 @@ const ScheduleListItem = ({ lesson }: ScheduleListItemProps) => {
   );
 };
 
-export default ScheduleListItem;
+export default ScheduleItem;

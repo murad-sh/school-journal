@@ -1,7 +1,7 @@
 import AuthForm from "@/components/auth/AuthForm";
 import { ModeToggle } from "@/components/theme/mode-toggle";
 
-const Login = () => {
+const LoginPage = () => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -21,4 +21,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

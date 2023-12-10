@@ -11,7 +11,7 @@ import { ModeToggle } from "../theme/mode-toggle";
 const user: User = {
   fullName: "Murad Shahbazov",
   role: "student",
-  // role: 'teacher',
+  // role: "teacher",
 };
 
 const Layout = () => {

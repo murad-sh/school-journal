@@ -1,6 +1,25 @@
 import { studentAbsences } from "@/data/mocked/student-absences";
+import ErrorMessage from "../shared/ErrorMessage";
+import InfoMessage from "../shared/InfoMessage";
+import { absencesInfo } from "@/config/ui-messages";
+import AbsencesSkeleton from "./AbsencesSkeleton";
 
-const AbsencesList = () => {
+const Absences = () => {
+  // Loading State
+  if (false) return <AbsencesSkeleton />;
+
+  // Error state
+  if (false) return <ErrorMessage />;
+
+  // No data state
+  if (false)
+    return (
+      <InfoMessage
+        message={absencesInfo.message}
+        description={absencesInfo.description}
+      />
+    );
+
   return (
     <div className="container p-4">
       <ul className="overflow-hidden rounded-md border shadow-sm">
@@ -30,4 +49,4 @@ const AbsencesList = () => {
   );
 };
 
-export default AbsencesList;
+export default Absences;

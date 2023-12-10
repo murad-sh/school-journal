@@ -1,14 +1,14 @@
-import AbsencesList from "@/components/absences/AbsenceList";
+import Absences from "@/components/absences/Absences";
 
-const Absences = () => {
+const AbsencesPage = () => {
   return (
     <section className="py-1">
       <h2 className="mb-4 text-2xl font-bold text-slate-900 dark:text-slate-100">
         Your Absences:
       </h2>
-      <AbsencesList />
+      <Absences />
     </section>
   );
 };
 
-export default Absences;
+export default AbsencesPage;

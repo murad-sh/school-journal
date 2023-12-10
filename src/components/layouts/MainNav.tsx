@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import { GraduationCap as MainLogo } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { GraduationCap as MainLogo } from "lucide-react";
 
-const MainNav = ({ role }: { role: 'student' | 'teacher' }) => {
-  const logoLink = role === 'student' ? '/schedule' : '/dashboard';
+const MainNav = ({ role }: { role: "student" | "teacher" }) => {
+  const logoLink = role === "student" ? "/schedule" : "/dashboard";
 
   return (
     <div className="flex gap-6 md:gap-10">

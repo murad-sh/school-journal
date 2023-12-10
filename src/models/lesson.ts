@@ -4,4 +4,5 @@ export type Lesson = {
   startTime: string;
   endTime: string;
   teacher: string;
+  location: string;
 };

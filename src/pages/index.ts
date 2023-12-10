@@ -1,19 +1,19 @@
-import Login from './Login';
-import PageNotFound from './PageNotFound';
-import Dashboard from './Dashboard';
-import Grades from './Grades';
-import Absences from './Absences';
-import Schedule from './Schedule';
-import LessonPage from './Lesson';
-import Student from './Student';
+import LoginPage from "./LoginPage";
+import PageNotFound from "./PageNotFound";
+import DashboardPage from "./DashboardPage";
+import GradesPage from "./GradesPage";
+import AbsencesPage from "./AbsencesPage";
+import SchedulePage from "./SchedulePage";
+import LessonPage from "./LessonPage";
+import StudentPage from "./StudentPage";
 
 export {
-  Login,
+  LoginPage,
   PageNotFound,
-  Dashboard,
-  Grades,
-  Absences,
-  Schedule,
+  DashboardPage,
+  GradesPage,
+  AbsencesPage,
+  SchedulePage,
   LessonPage,
-  Student,
+  StudentPage,
 };

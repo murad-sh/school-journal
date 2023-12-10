@@ -6,8 +6,32 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { calculateAverage } from "@/lib/calculations/grade";
+import GradesListSkeleton from "./GradesSkeleton";
+import ErrorMessage from "../shared/ErrorMessage";
+import InfoMessage from "../shared/InfoMessage";
+import { gradesInfo } from "@/config/ui-messages";
 
-const GradesList = () => {
+const Grades = () => {
+  // Loading state
+  if (true) {
+    return <GradesListSkeleton />;
+  }
+
+  // Error state
+  if (true) {
+    return <ErrorMessage />;
+  }
+
+  // No data state
+  if (false) {
+    return (
+      <InfoMessage
+        message={gradesInfo.message}
+        description={gradesInfo.description}
+      />
+    );
+  }
+
   return (
     <div className="container mx-auto p-4">
       <ul className="overflow-hidden rounded-md border text-center shadow-sm">
@@ -51,4 +75,4 @@ const GradesList = () => {
   );
 };
 
-export default GradesList;
+export default Grades;
