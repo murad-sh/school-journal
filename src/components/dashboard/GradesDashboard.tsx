@@ -5,9 +5,12 @@ import GradeOperations from "./GradeOperations";
 import { toast } from "sonner";
 import GradeForm from "./GradeForm";
 import { useState } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 const GradesDashboard = () => {
   const [showDialog, setShowDialog] = useState(false);
+
+  if (true) return <GradesDashboardSkeleton />;
 
   return (
     <div className="container mx-auto p-4">
@@ -64,3 +67,34 @@ const GradesDashboard = () => {
 };
 
 export default GradesDashboard;
+
+const GradesDashboardSkeleton = () => {
+  return (
+    <div className="container mx-auto p-4">
+      <div className="mb-6 flex flex-col items-center justify-center">
+        <Skeleton className="mb-3 h-8 w-4/12" />
+        <Skeleton className="h-7 w-40" />
+      </div>
+
+      <div className="mb-8 flex justify-end">
+        <Skeleton className="h-10 w-36" />
+      </div>
+
+      <ul className="rounded border shadow-sm">
+        {[...Array(2)].map((_, index) => (
+          <li
+            key={index}
+            className="flex items-center justify-between border-b p-4 last:border-b-0"
+          >
+            <div className="flex-1 space-y-1">
+              <Skeleton className="h-6 w-1/12" />
+              <Skeleton className="h-5 w-36" />
+              <Skeleton className="h-5 w-1/3" />
+            </div>
+            <Skeleton className="h-8 w-8" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};

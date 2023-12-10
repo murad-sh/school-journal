@@ -25,3 +25,13 @@ export const noStudentsInfo = {
   description:
     "Student assignments to this lesson will be displayed here once they are made. If you expect to see students listed, please verify with the school administration.",
 };
+
+export const noStudentGradesInfo = {
+  message: "No grades to display.",
+  description: "New grades will appear here once entered.",
+};
+
+export const noStudentAbsencesInfo = {
+  message: "No absences recorded.",
+  description: "Any absences will be listed here.",
+};

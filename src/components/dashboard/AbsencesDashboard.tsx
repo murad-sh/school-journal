@@ -1,7 +1,10 @@
 import { studentLessonData } from "@/data/mocked/teacher";
 import AbsenceOperation from "./AbsenceOperation";
+import { Skeleton } from "../ui/skeleton";
 
 const AbsencesDashboard = () => {
+  if (false) return <AbsencesDashboardSkeleton />;
+
   return (
     <div className="container mx-auto p-4">
       <div className="mb-6 text-center">
@@ -33,3 +36,30 @@ const AbsencesDashboard = () => {
 };
 
 export default AbsencesDashboard;
+
+const AbsencesDashboardSkeleton = () => {
+  return (
+    <div className="container p-4">
+      <div className="mb-6 flex flex-col items-center justify-center">
+        <Skeleton className="mb-3 h-8 w-4/12" />
+        <Skeleton className="h-7 w-40" />
+      </div>
+
+      <div className="mb-8 flex justify-end">
+        <Skeleton className="h-10 w-36" />
+      </div>
+
+      <ul className="rounded border shadow-sm">
+        {[...Array(4)].map((_, index) => (
+          <li
+            key={index}
+            className="flex items-center justify-between border-b p-4 last:border-b-0"
+          >
+            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-9 w-11" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
