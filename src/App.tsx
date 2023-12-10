@@ -11,6 +11,7 @@ import {
   PageNotFound,
 } from "./pages/index";
 import Layout from "./components/layouts/Layout";
+import "./index.css";
 
 const App = () => {
   return (
