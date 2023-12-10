@@ -1,10 +1,12 @@
-import Lesson from '@/components/dashboard/Lesson';
+import Lesson from "@/components/dashboard/Lesson";
+import DashboardNav from "@/components/layouts/DashboardNav";
 
 const LessonPage = () => {
   return (
-    <div>
+    <section>
+      <DashboardNav backPath="/dashboard" />
       <Lesson />
-    </div>
+    </section>
   );
 };
 

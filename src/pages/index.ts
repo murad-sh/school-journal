@@ -5,7 +5,8 @@ import GradesPage from "./GradesPage";
 import AbsencesPage from "./AbsencesPage";
 import SchedulePage from "./SchedulePage";
 import LessonPage from "./LessonPage";
-import StudentPage from "./StudentPage";
+import StudentGradesPage from "./StudentGradesPage";
+import StudentAbsencesPage from "./StudentAbsencesPage";
 
 export {
   LoginPage,
@@ -15,5 +16,6 @@ export {
   AbsencesPage,
   SchedulePage,
   LessonPage,
-  StudentPage,
+  StudentGradesPage,
+  StudentAbsencesPage,
 };

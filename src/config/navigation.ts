@@ -1,39 +1,44 @@
-import { SidebarNavItem } from '@/types';
+import { SidebarNavItem } from "@/types";
 import {
   CalendarDays as ScheduleIcon,
   CheckSquare as GradesIcon,
   CalendarX2 as AbsencesIcon,
   PenSquare as DashboardIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
 export const studentNav: SidebarNavItem[] = [
   {
-    title: 'Schedule',
+    title: "Dashboard",
+    icon: DashboardIcon,
+    to: "/dashboard",
+  },
+  {
+    title: "Schedule",
     icon: ScheduleIcon,
-    to: '/schedule',
+    to: "/schedule",
   },
   {
-    title: 'Grades',
+    title: "Grades",
     icon: GradesIcon,
-    to: '/grades',
+    to: "/grades",
   },
   {
-    title: 'Absences',
+    title: "Absences",
     icon: AbsencesIcon,
-    to: '/absences',
+    to: "/absences",
   },
 ];
 
 export const teacherNav: SidebarNavItem[] = [
   {
-    title: 'Dashboard',
+    title: "Dashboard",
     icon: DashboardIcon,
-    to: '/dashboard',
+    to: "/dashboard",
   },
 
   {
-    title: 'Schedule',
+    title: "Schedule",
     icon: ScheduleIcon,
-    to: '/schedule',
+    to: "/schedule",
   },
 ];

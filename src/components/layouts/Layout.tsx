@@ -6,6 +6,8 @@ import { studentNav, teacherNav } from "../../config/navigation";
 import User from "@/models/user";
 import { Footer } from "./Footer";
 import { ModeToggle } from "../theme/mode-toggle";
+import { Toaster } from "sonner";
+import { useTheme } from "../theme/theme-provider";
 
 // TODO: get user from session
 const user: User = {
@@ -15,13 +17,15 @@ const user: User = {
 };
 
 const Layout = () => {
+  const { theme } = useTheme();
+
   return (
     <div className="flex min-h-screen flex-col space-y-6">
       <header className="sticky top-0 z-40 border-b bg-background">
         <div className="container flex h-16 items-center justify-between py-4">
           <MainNav role={user.role} />
-          <div className="flex items-center justify-center gap-3">
-            <ModeToggle />
+          <div className="flex items-center justify-center gap-2">
+            <ModeToggle isRounded />
             <UserNav fullName={user.fullName} role={user.role} />
           </div>
         </div>
@@ -34,6 +38,7 @@ const Layout = () => {
           <Outlet />
         </main>
       </div>
+      <Toaster richColors theme={theme} offset={30} />
       <Footer />
     </div>
   );

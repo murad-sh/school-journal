@@ -7,8 +7,9 @@ import {
   LessonPage,
   LoginPage,
   SchedulePage,
-  StudentPage,
+  StudentGradesPage,
   PageNotFound,
+  StudentAbsencesPage,
 } from "./pages/index";
 import Layout from "./components/layouts/Layout";
 import "./index.css";
@@ -22,8 +23,17 @@ const App = () => {
             <Route index element={<Navigate replace to="login" />} />
             <Route path="/dashboard">
               <Route index element={<DashboardPage />} />
-              <Route path=":lessonId" element={<LessonPage />} />
-              <Route path=":lessonId/:studentId" element={<StudentPage />} />
+              <Route path=":lessonId">
+                <Route index element={<LessonPage />} />
+                <Route
+                  path=":studentId/grades"
+                  element={<StudentGradesPage />}
+                />
+                <Route
+                  path=":studentId/absences"
+                  element={<StudentAbsencesPage />}
+                />
+              </Route>
             </Route>
             <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/grades" element={<GradesPage />} />

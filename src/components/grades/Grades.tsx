@@ -13,12 +13,12 @@ import { gradesInfo } from "@/config/ui-messages";
 
 const Grades = () => {
   // Loading state
-  if (true) {
+  if (false) {
     return <GradesListSkeleton />;
   }
 
   // Error state
-  if (true) {
+  if (false) {
     return <ErrorMessage />;
   }
 

@@ -13,3 +13,15 @@ export const scheduleInfo = {
   description:
     "Your schedule details will appear here once they are available.",
 };
+
+export const lessonsInfo = {
+  message: "You currently have no lessons to teach.",
+  description:
+    "When you are assigned to new lessons, they will appear here. Check back later, or reach out to your coordinator for more details.",
+};
+
+export const noStudentsInfo = {
+  message: "There are no students assigned to this lesson.",
+  description:
+    "Student assignments to this lesson will be displayed here once they are made. If you expect to see students listed, please verify with the school administration.",
+};
