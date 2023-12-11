@@ -8,11 +8,6 @@ import {
 
 export const studentNav: SidebarNavItem[] = [
   {
-    title: "Dashboard",
-    icon: DashboardIcon,
-    to: "/dashboard",
-  },
-  {
     title: "Schedule",
     icon: ScheduleIcon,
     to: "/schedule",

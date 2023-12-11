@@ -10,7 +10,7 @@ import { Skeleton } from "../ui/skeleton";
 const GradesDashboard = () => {
   const [showDialog, setShowDialog] = useState(false);
 
-  if (true) return <GradesDashboardSkeleton />;
+  if (false) return <GradesDashboardSkeleton />;
 
   return (
     <div className="container mx-auto p-4">

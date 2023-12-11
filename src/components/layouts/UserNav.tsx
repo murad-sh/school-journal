@@ -1,3 +1,4 @@
+import { logout } from "@/services/auth-api";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
@@ -9,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface UserProps {
   fullName: string;
@@ -22,6 +24,15 @@ const getFirstLetters = (fullName: string) => {
 
 export function UserNav({ fullName, role }: UserProps) {
   const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    try {
+      await logout();
+      navigate("/login", { replace: true });
+    } catch (error) {
+      toast.error("Logout failed");
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -42,7 +53,7 @@ export function UserNav({ fullName, role }: UserProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="hover:cursor-pointer"
-          onClick={() => navigate("/login")}
+          onClick={logoutHandler}
         >
           Log out
         </DropdownMenuItem>
