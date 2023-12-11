@@ -1,4 +1,3 @@
-import { logout } from "@/services/auth-api";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
@@ -10,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import { logout } from "@/services/api-auth";
 
 interface UserProps {
   fullName: string;
@@ -26,12 +25,8 @@ export function UserNav({ fullName, role }: UserProps) {
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
-    try {
-      await logout();
-      navigate("/login", { replace: true });
-    } catch (error) {
-      toast.error("Logout failed");
-    }
+    logout();
+    navigate("/login", { replace: true });
   };
 
   return (

@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router-dom";
 import Loader from "../shared/Loader";
 import { toast } from "sonner";
-import axios from "axios";
+import { login } from "@/services/api-auth";
 
 const AuthForm = () => {
   const navigate = useNavigate();
@@ -30,13 +30,7 @@ const AuthForm = () => {
 
   async function onSubmit(enteredData: LoginSchemaType) {
     try {
-      const res = await axios.post("http://localhost:8080/signin", {
-        username: enteredData.username,
-        password: enteredData.password,
-      });
-      const token = res.data.token;
-      // localStorage.setItem("token");
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      await login(enteredData.username, enteredData.password);
       navigate("/schedule");
     } catch (error) {
       toast.error("Authentication failed! Please try again");
@@ -59,7 +53,7 @@ const AuthForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>username</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter your email"

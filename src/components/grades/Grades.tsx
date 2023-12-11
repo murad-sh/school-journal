@@ -18,7 +18,7 @@ const Grades = () => {
   }
 
   // Error state
-  if (false) {
+  if (true) {
     return <ErrorMessage />;
   }
 
