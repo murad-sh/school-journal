@@ -35,3 +35,6 @@ export const noStudentAbsencesInfo = {
   message: "No absences recorded.",
   description: "Any absences will be listed here.",
 };
+
+export const loginFailed =
+  "Login failed. Ensure your username and password are correct.";

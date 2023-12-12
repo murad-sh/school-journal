@@ -6,13 +6,20 @@ export const login = async (username: string, password: string) => {
     password,
   });
 
+  console.log(res);
+
   const token = res.data.token;
-  // TODO : save user full name + role in local storage
-  // localStorage.setItem("token");
-  axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  const user = JSON.stringify({
+    id: res.data.userId,
+    // fullName: res.data.fullName,
+    role: res.data.role.toLowerCase(),
+  });
+
+  localStorage.setItem("token", token);
+  localStorage.setItem("user", user);
 };
 
 export const logout = () => {
-  // TODO : Cleanup local storage
-  axiosInstance.defaults.headers.common["Authorization"] = "";
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 };

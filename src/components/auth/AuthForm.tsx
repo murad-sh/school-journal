@@ -11,13 +11,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Loader from "../shared/Loader";
 import { toast } from "sonner";
 import { login } from "@/services/api-auth";
+import { loginFailed } from "@/config/ui-messages";
 
 const AuthForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/schedule";
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -31,9 +34,10 @@ const AuthForm = () => {
   async function onSubmit(enteredData: LoginSchemaType) {
     try {
       await login(enteredData.username, enteredData.password);
-      navigate("/schedule");
+      navigate(from, { replace: true });
+      form.reset();
     } catch (error) {
-      toast.error("Authentication failed! Please try again");
+      toast.error(loginFailed);
     }
   }
 
@@ -56,7 +60,7 @@ const AuthForm = () => {
                 <FormLabel>Username</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter your email"
+                    placeholder="Enter your username"
                     type="text"
                     {...field}
                   />

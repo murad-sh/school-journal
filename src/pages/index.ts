@@ -7,6 +7,7 @@ import SchedulePage from "./SchedulePage";
 import LessonPage from "./LessonPage";
 import StudentGradesPage from "./StudentGradesPage";
 import StudentAbsencesPage from "./StudentAbsencesPage";
+import Unauthorized from "./Unauthorized";
 
 export {
   LoginPage,
@@ -18,4 +19,5 @@ export {
   LessonPage,
   StudentGradesPage,
   StudentAbsencesPage,
+  Unauthorized,
 };

@@ -10,8 +10,9 @@ import {
   StudentGradesPage,
   PageNotFound,
   StudentAbsencesPage,
+  Unauthorized,
 } from "./pages/index";
-import Layout from "./components/layouts/Layout";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
 import "./index.css";
 
 const App = () => {
@@ -19,8 +20,8 @@ const App = () => {
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<Navigate replace to="login" />} />
+          <Route index element={<Navigate replace to="login" />} />
+          <Route element={<ProtectedRoute allowedRoles={["teacher"]} />}>
             <Route path="/dashboard">
               <Route index element={<DashboardPage />} />
               <Route path=":lessonId">
@@ -35,11 +36,18 @@ const App = () => {
                 />
               </Route>
             </Route>
-            <Route path="/schedule" element={<SchedulePage />} />
+          </Route>
+          <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
             <Route path="/grades" element={<GradesPage />} />
             <Route path="/absences" element={<AbsencesPage />} />
           </Route>
+          <Route
+            element={<ProtectedRoute allowedRoles={["student", "teacher"]} />}
+          >
+            <Route path="/schedule" element={<SchedulePage />} />
+          </Route>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

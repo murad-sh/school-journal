@@ -1,12 +1,21 @@
 import AuthForm from "@/components/auth/AuthForm";
 import { ModeToggle } from "@/components/theme/mode-toggle";
 import { useTheme } from "@/components/theme/theme-provider";
-
+import { getCurrentUser } from "@/lib/session";
+import { Navigate } from "react-router-dom";
 import { Toaster } from "sonner";
 
 const LoginPage = () => {
   const currentYear = new Date().getFullYear();
   const { theme } = useTheme();
+  const user = getCurrentUser();
+  if (user)
+    return (
+      <Navigate
+        to={user.role === "student" ? "/schedule" : "/dashboard"}
+        replace
+      />
+    );
 
   return (
     <div className="flex h-screen flex-col justify-between">

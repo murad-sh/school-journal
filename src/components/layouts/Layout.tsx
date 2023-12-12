@@ -1,32 +1,35 @@
-import { Outlet } from "react-router-dom";
 import MainNav from "./MainNav";
 import { UserNav } from "./UserNav";
 import Sidebar from "./Sidebar";
 import { studentNav, teacherNav } from "../../config/navigation";
-import User from "@/models/user";
 import { Footer } from "./Footer";
 import { ModeToggle } from "../theme/mode-toggle";
 import { Toaster } from "sonner";
 import { useTheme } from "../theme/theme-provider";
+import { getSchedule } from "@/services/api-student";
+import User from "@/models/user";
 
-// TODO: get user from session
-const user: User = {
-  fullName: "Murad Shahbazov",
-  role: "student",
-  // role: "teacher",
-};
-
-const Layout = () => {
+const Layout = ({
+  user,
+  children,
+}: {
+  user: User;
+  children: React.ReactNode;
+}) => {
   const { theme } = useTheme();
 
   return (
     <div className="flex min-h-screen flex-col space-y-6">
+      {/* TEMP */}
+      <button onClick={() => getSchedule()}>Click me</button>
       <header className="sticky top-0 z-40 border-b bg-background">
         <div className="container flex h-16 items-center justify-between py-4">
           <MainNav role={user.role} />
           <div className="flex items-center justify-center gap-2">
             <ModeToggle isRounded />
-            <UserNav fullName={user.fullName} role={user.role} />
+            {/* TEMP */}
+            <UserNav fullName={"Murad Shahbazov"} role={user.role} />
+            {/* <UserNav fullName={user.fullName} role={user.role} /> */}
           </div>
         </div>
       </header>
@@ -35,7 +38,7 @@ const Layout = () => {
           <Sidebar items={user.role === "student" ? studentNav : teacherNav} />
         </aside>
         <main className="flex w-full flex-1 flex-col overflow-hidden">
-          <Outlet />
+          {children}
         </main>
       </div>
       <Toaster richColors theme={theme} offset={30} />
