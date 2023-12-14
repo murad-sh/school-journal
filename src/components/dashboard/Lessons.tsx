@@ -1,19 +1,21 @@
-import { teacherLessons } from "@/data/mocked/teacher";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LessonsSkeleton from "./LessonsSkeleton";
 import ErrorMessage from "../shared/ErrorMessage";
 import InfoMessage from "../shared/InfoMessage";
 import { lessonsInfo } from "@/config/ui-messages";
+import { useSchedule } from "@/hooks/use-api-schedule";
+import { Lesson } from "@/models/lesson";
+import NavigateLogin from "../shared/NavigateLogin";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 const Lessons = () => {
-  // Loading state
-  if (false) return <LessonsSkeleton />;
+  const location = useLocation();
+  const { schedule, isLoading, error, isUnauthorized } = useSchedule();
 
-  // Error state
-  if (false) return <ErrorMessage />;
-
-  // No data state
-  if (false)
+  if (isLoading) return <LessonsSkeleton />;
+  if (error) return <ErrorMessage />;
+  if (isUnauthorized) return <NavigateLogin location={location} />;
+  if (schedule.length === 0)
     return (
       <InfoMessage
         message={lessonsInfo.message}
@@ -24,7 +26,7 @@ const Lessons = () => {
   return (
     <div className="container p-4">
       <ul className="overflow-hidden rounded-md border shadow-sm">
-        {teacherLessons.map((lesson) => (
+        {schedule.map((lesson: Lesson) => (
           <Link
             key={lesson.id}
             to={`/dashboard/${lesson.id}`}
@@ -32,13 +34,15 @@ const Lessons = () => {
           >
             <li className="flex w-full items-center justify-between">
               <div className="flex flex-grow flex-col gap-3 text-sm">
-                <span className="font-semibold">{lesson.lesson}</span>
+                <span className="font-semibold">
+                  {capitalizeFirstLetter(lesson.name)}
+                </span>
               </div>
               <span
                 className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold leading-5 text-blue-800 dark:bg-blue-800 dark:text-blue-100"
                 style={{ fontVariantNumeric: "tabular-nums" }}
               >
-                {lesson.time}
+                {`${lesson.day}, ${lesson.startTime}`}
               </span>
             </li>
           </Link>

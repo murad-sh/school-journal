@@ -1,18 +1,21 @@
-import { studentAbsences } from "@/data/mocked/student-absences";
 import ErrorMessage from "../shared/ErrorMessage";
 import InfoMessage from "../shared/InfoMessage";
 import { absencesInfo } from "@/config/ui-messages";
+import { useAbsences } from "@/hooks/use-api-student";
 import { Skeleton } from "../ui/skeleton";
+import { useLocation } from "react-router-dom";
+import NavigateLogin from "../shared/NavigateLogin";
+import { Absence } from "@/models/absence";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 const Absences = () => {
-  // Loading State
-  if (false) return <AbsencesSkeleton />;
+  const location = useLocation();
+  const { absences, isLoading, error, isUnauthorized } = useAbsences();
 
-  // Error state
-  if (false) return <ErrorMessage />;
-
-  // No data state
-  if (false)
+  if (isLoading) return <AbsencesSkeleton />;
+  if (error) return <ErrorMessage />;
+  if (isUnauthorized) return <NavigateLogin location={location} />;
+  if (absences.length === 0)
     return (
       <InfoMessage
         message={absencesInfo.message}
@@ -23,17 +26,17 @@ const Absences = () => {
   return (
     <div className="container p-4">
       <ul className="overflow-hidden rounded-md border shadow-sm">
-        {studentAbsences.map((absence, index) => (
+        {absences.map((absence: Absence) => (
           <li
-            key={index}
+            key={absence.id}
             className="flex items-center justify-between border-b p-4 last:border-b-0 sm:px-6"
           >
             <div className="flex flex-col gap-3 text-sm">
               <span className=" font-medium text-slate-900 dark:text-slate-100">
-                {absence.lesson}
+                {capitalizeFirstLetter(absence.lessonName as string)}
               </span>
               <span className="text-gray-500 dark:text-gray-400">
-                Teacher: {absence.teacher}
+                Teacher: {`${absence.teacherName} ${absence.teacherSurname}`}
               </span>
             </div>
             <span

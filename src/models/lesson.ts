@@ -1,8 +1,10 @@
 export type Lesson = {
+  id?: string;
   day: string;
-  lesson: string;
+  name: string;
   startTime: string;
   endTime: string;
-  teacher: string;
+  teacherSurname: string;
+  teacherName: string;
   location: string;
 };

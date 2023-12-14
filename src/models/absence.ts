@@ -1,5 +1,9 @@
 export type Absence = {
-  lesson: string;
+  id?: string;
   date: string;
-  teacher: string;
+  student: string;
+  lesson: string;
+  lessonName?: string;
+  teacherName?: string;
+  teacherSurname?: string;
 };

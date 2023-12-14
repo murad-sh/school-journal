@@ -1,29 +1,28 @@
-import { studentLessons } from "@/data/mocked/student-lessons";
 import { organizeScheduleByDay } from "@/lib/calculations/schedule";
 import ScheduleItem from "./ScheduleItem";
 import ErrorMessage from "../shared/ErrorMessage";
 import InfoMessage from "../shared/InfoMessage";
 import { scheduleInfo } from "@/config/ui-messages";
 import { Skeleton } from "../ui/skeleton";
+import { useSchedule } from "@/hooks/use-api-schedule";
+import { Navigate } from "react-router-dom";
 
 const Schedule = () => {
-  const scheduleByDay = organizeScheduleByDay(studentLessons);
   const daysOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const { schedule, error, isLoading, isUnauthorized } = useSchedule();
 
-  // Loading State
-  if (false) return <ScheduleSkeleton />;
-
-  // Error State
-  if (false) return <ErrorMessage />;
-
-  // No data state
-  if (false)
+  if (isLoading) return <ScheduleSkeleton />;
+  if (error) return <ErrorMessage />;
+  if (isUnauthorized) return <Navigate to="/login" replace />;
+  if (schedule.length === 0)
     return (
       <InfoMessage
         message={scheduleInfo.message}
         description={scheduleInfo.description}
       />
     );
+
+  const scheduleByDay = organizeScheduleByDay(schedule);
 
   return (
     <div className="container p-4">

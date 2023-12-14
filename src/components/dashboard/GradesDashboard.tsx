@@ -1,22 +1,35 @@
 import { Button } from "../ui/button";
-import { studentLessonData } from "@/data/mocked/teacher";
 import { PlusIcon } from "lucide-react";
 import GradeOperations from "./GradeOperations";
-import { toast } from "sonner";
 import GradeForm from "./GradeForm";
 import { useState } from "react";
 import { Skeleton } from "../ui/skeleton";
+import { useLocation, useParams } from "react-router-dom";
+import { useStudent } from "@/hooks/use-api-teacher";
+import ErrorMessage from "../shared/ErrorMessage";
+import NavigateLogin from "../shared/NavigateLogin";
+import { Grade } from "@/models/grade";
+import InfoMessage from "../shared/InfoMessage";
+import { noStudentGradesInfo } from "@/config/ui-messages";
 
 const GradesDashboard = () => {
   const [showDialog, setShowDialog] = useState(false);
+  const location = useLocation();
+  const { studentId, lessonId } = useParams();
+  const { student, isLoading, error, isUnauthorized, mutate } = useStudent(
+    studentId as string,
+    lessonId as string,
+  );
 
-  if (false) return <GradesDashboardSkeleton />;
+  if (isLoading) return <GradesDashboardSkeleton />;
+  if (error) return <ErrorMessage />;
+  if (isUnauthorized) return <NavigateLogin location={location} />;
 
   return (
     <div className="container mx-auto p-4">
       <div className="mb-6 text-center">
         <h1 className="mb-3 text-2xl font-bold">
-          {studentLessonData.fullName}
+          {`${student.name} ${student.surname}`}
         </h1>
         <h2 className="text-lg">Student's grades</h2>
       </div>
@@ -32,35 +45,44 @@ const GradesDashboard = () => {
         </Button>
       </div>
 
-      <ul className="rounded border shadow-sm">
-        {studentLessonData.grades.map((grade, index) => (
-          <li
-            // TODO : Actual index
-            key={index}
-            className="flex items-center justify-between border-b p-4 last:border-b-0"
-          >
-            <div className="space-y-1">
-              <p className="font-semibold text-slate-900 dark:text-slate-100">
-                Score: {grade.score}
-              </p>
-              <p className="text-sm text-slate-700 dark:text-slate-300">
-                Date: {grade.assessmentDate}
-              </p>
-              <p className="text-sm text-slate-700  dark:text-slate-300">
-                Comment: {grade.comment}
-              </p>
-            </div>
-            <div>
-              <GradeOperations grade={grade} />
-            </div>
-          </li>
-        ))}
-      </ul>
+      {student.grades.length !== 0 ? (
+        <ul className="rounded border shadow-sm">
+          {student.grades.map((grade: Grade) => (
+            <li
+              key={grade.id}
+              className="flex items-center justify-between border-b p-4 last:border-b-0"
+            >
+              <div className="space-y-1">
+                <p className="font-semibold text-slate-900 dark:text-slate-100">
+                  Score: {grade.gradeValue}
+                </p>
+                <p className="text-sm text-slate-700 dark:text-slate-300">
+                  Date: {grade.date}
+                </p>
+                <p className="text-sm text-slate-700  dark:text-slate-300">
+                  Comment: {grade.details}
+                </p>
+              </div>
+              <div>
+                <GradeOperations grade={grade} mutate={mutate} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <InfoMessage
+          message={noStudentGradesInfo.message}
+          description={noStudentGradesInfo.description}
+        />
+      )}
       <GradeForm
         open={showDialog}
         setOpen={setShowDialog}
         type="Add"
-        onSubmit={() => toast.success("Added!")}
+        onSubmit={() => {
+          mutate();
+          setShowDialog(false);
+        }}
       />
     </div>
   );

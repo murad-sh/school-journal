@@ -9,13 +9,7 @@ const LoginPage = () => {
   const currentYear = new Date().getFullYear();
   const { theme } = useTheme();
   const user = getCurrentUser();
-  if (user)
-    return (
-      <Navigate
-        to={user.role === "student" ? "/schedule" : "/dashboard"}
-        replace
-      />
-    );
+  if (user) return <Navigate to="/schedule" replace />;
 
   return (
     <div className="flex h-screen flex-col justify-between">

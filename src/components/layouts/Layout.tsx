@@ -6,8 +6,9 @@ import { Footer } from "./Footer";
 import { ModeToggle } from "../theme/mode-toggle";
 import { Toaster } from "sonner";
 import { useTheme } from "../theme/theme-provider";
-import { getSchedule } from "@/services/api-student";
+import { SWRConfig } from "swr";
 import User from "@/models/user";
+import axiosInstance from "@/lib/axios-instance";
 
 const Layout = ({
   user,
@@ -20,16 +21,12 @@ const Layout = ({
 
   return (
     <div className="flex min-h-screen flex-col space-y-6">
-      {/* TEMP */}
-      <button onClick={() => getSchedule()}>Click me</button>
       <header className="sticky top-0 z-40 border-b bg-background">
         <div className="container flex h-16 items-center justify-between py-4">
-          <MainNav role={user.role} />
+          <MainNav />
           <div className="flex items-center justify-center gap-2">
             <ModeToggle isRounded />
-            {/* TEMP */}
-            <UserNav fullName={"Murad Shahbazov"} role={user.role} />
-            {/* <UserNav fullName={user.fullName} role={user.role} /> */}
+            <UserNav fullName={user.fullName} role={user.role} />
           </div>
         </div>
       </header>
@@ -37,9 +34,16 @@ const Layout = ({
         <aside className="hidden w-[200px] flex-col md:flex">
           <Sidebar items={user.role === "student" ? studentNav : teacherNav} />
         </aside>
-        <main className="flex w-full flex-1 flex-col overflow-hidden">
-          {children}
-        </main>
+        <SWRConfig
+          value={{
+            fetcher: (url: string) =>
+              axiosInstance.get(url).then((res) => res.data),
+          }}
+        >
+          <main className="flex w-full flex-1 flex-col overflow-hidden">
+            {children}
+          </main>
+        </SWRConfig>
       </div>
       <Toaster richColors theme={theme} offset={30} />
       <Footer />

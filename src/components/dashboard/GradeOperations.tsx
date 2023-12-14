@@ -23,11 +23,21 @@ import {
 } from "../ui/dropdown-menu";
 import GradeForm from "./GradeForm";
 import { Grade } from "@/models/grade";
+import { deleteGrade } from "@/services/api-grades";
+import { toast } from "sonner";
 
-const GradeOperations = ({ grade }: { grade: Grade }) => {
-  const [showAddGradeDialog, setShowAddGradeDialog] = useState<boolean>(false);
+const GradeOperations = ({
+  grade,
+  mutate,
+}: {
+  grade: Grade;
+  mutate: () => void;
+}) => {
+  const [showEditGradeDialog, setShowEditGradeDialog] =
+    useState<boolean>(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false);
   const [isDeleteLoading, setIsDeleteLoading] = useState<boolean>(false);
+
   return (
     <>
       <DropdownMenu>
@@ -39,7 +49,7 @@ const GradeOperations = ({ grade }: { grade: Grade }) => {
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={() => {
-              setShowAddGradeDialog(true);
+              setShowEditGradeDialog(true);
             }}
           >
             Edit
@@ -69,14 +79,15 @@ const GradeOperations = ({ grade }: { grade: Grade }) => {
               onClick={async (event) => {
                 event.preventDefault();
                 setIsDeleteLoading(true);
-
-                // const deleted = await deleteGrade(grade.id);
-
-                // if (deleted) {
-                //   setIsDeleteLoading(false);
-                //   setShowDeleteAlert(false);
-                // mutate()
-                // }
+                try {
+                  await deleteGrade(grade.id!);
+                  setIsDeleteLoading(false);
+                  mutate();
+                  toast.success("Grade deleted successfully!");
+                } catch (error) {
+                  toast.success("Something went wrong!");
+                }
+                setShowDeleteAlert(false);
               }}
               className="bg-red-600 focus:ring-red-600"
             >
@@ -91,11 +102,14 @@ const GradeOperations = ({ grade }: { grade: Grade }) => {
         </AlertDialogContent>
       </AlertDialog>
       <GradeForm
-        open={showAddGradeDialog}
-        setOpen={setShowAddGradeDialog}
+        open={showEditGradeDialog}
+        setOpen={setShowEditGradeDialog}
         type="Edit"
         initialGrade={grade}
-        onSubmit={() => console.log("Success!")}
+        onSubmit={() => {
+          mutate();
+          setShowEditGradeDialog(false);
+        }}
       />
     </>
   );

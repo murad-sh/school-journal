@@ -26,14 +26,13 @@ export const studentNav: SidebarNavItem[] = [
 
 export const teacherNav: SidebarNavItem[] = [
   {
-    title: "Dashboard",
-    icon: DashboardIcon,
-    to: "/dashboard",
-  },
-
-  {
     title: "Schedule",
     icon: ScheduleIcon,
     to: "/schedule",
+  },
+  {
+    title: "Dashboard",
+    icon: DashboardIcon,
+    to: "/dashboard",
   },
 ];

@@ -1,6 +1,9 @@
 export type Grade = {
-  score: number;
-  teacher: string;
-  assessmentDate: string;
-  comment: string;
+  id: string;
+  gradeValue: string;
+  teacherName: string;
+  teacherSurname: string;
+  lessonName: string;
+  date: string;
+  details: string;
 };

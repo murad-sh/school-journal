@@ -1,29 +1,35 @@
-import { studentGrades } from "@/data/mocked/student-grades";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { calculateAverage } from "@/lib/calculations/grade";
+import { calculateAverage, transformGrades } from "@/lib/calculations/grade";
 import GradesListSkeleton from "./GradesSkeleton";
 import ErrorMessage from "../shared/ErrorMessage";
 import InfoMessage from "../shared/InfoMessage";
 import { gradesInfo } from "@/config/ui-messages";
+import { useGrades } from "@/hooks/use-api-student";
+import { useLocation } from "react-router-dom";
+import NavigateLogin from "../shared/NavigateLogin";
 
 const Grades = () => {
-  // Loading state
-  if (false) {
+  const location = useLocation();
+  const { grades, isLoading, error, isUnauthorized } = useGrades();
+
+  if (isLoading) {
     return <GradesListSkeleton />;
   }
 
-  // Error state
-  if (true) {
+  if (error) {
     return <ErrorMessage />;
   }
 
-  // No data state
-  if (false) {
+  if (isUnauthorized) {
+    return <NavigateLogin location={location} />;
+  }
+
+  if (grades.length === 0) {
     return (
       <InfoMessage
         message={gradesInfo.message}
@@ -32,6 +38,7 @@ const Grades = () => {
     );
   }
 
+  const studentGrades = transformGrades(grades);
   return (
     <div className="container mx-auto p-4">
       <ul className="overflow-hidden rounded-md border text-center shadow-sm">
