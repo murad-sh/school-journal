@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Grade } from "@/models/grade";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import GradeSelect from "./GradesSelect";
 import { addGrade, updateGrade } from "@/services/api-grades";
 import { getCurrentUser } from "@/lib/session";
@@ -36,6 +36,15 @@ const GradeForm = ({
   const [score, setScore] = useState(initialGrade?.gradeValue.toString() || "");
   const [comment, setComment] = useState(initialGrade?.details || "");
   const { studentId, lessonId } = useParams();
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!score || !comment) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [score, comment]);
 
   const user = getCurrentUser();
   if (!user) {
@@ -112,7 +121,10 @@ const GradeForm = ({
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={type === "Add" ? addHandler : editHandler}>
+          <Button
+            onClick={type === "Add" ? addHandler : editHandler}
+            disabled={error}
+          >
             {type === "Edit" ? "Save changes" : "Add"}
           </Button>
         </DialogFooter>
